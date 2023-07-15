@@ -1,6 +1,6 @@
 # Audit d'application
 
-Article écrit par Salim CHAMI [@salimchami](https://github.com/salimchami/) (30 mn de lecture).
+><i>Article écrit par Salim CHAMI [@salimchami](https://github.com/salimchami/) (30 mn de lecture).</i>
 
 > **Mon Manager N+3 Laure** : "Salut ! tu voudrais faire l'audit de code d'une application ?"  
 **Moi** : "Salut Laure ! quels problèmes ils ont ?"  
@@ -59,14 +59,22 @@ Je change d'onglet et contacte Rémy pour lui demander des explications supplém
 > Comme quand on interdit au développeur de contacter le PO..."
 
 Cette fiction peut être bien réelle dans les entreprises.
-Les managers, les PM/PO considèrent le logiciel comme une boîte noire.
-Et en tant qu'auditeur, nous devons également les aider à éclaircir les processus de développement.
+Les managers et les PM/PO considèrent le logiciel comme une boîte noire, et en tant qu'auditeur, nous devons les aider 
+à comprendre les processus de développement.
+
 Par ailleurs, si un audit est réalisé sur une application, l'équipe de dév devrait être la première dans la boucle, et
 doit avoir le recul nécessaire pour accepter cet audit.
 Si ce n'est-elle qui en fait la demande.
 
 Dans cet article, je vais tenter d'expliquer ce qu'est un audit applicatif en exposant tous les aspects devant être pris
 en compte pour le réaliser et pour écrire un compte rendu.
+
+## Définition
+
+L'audit applicatif est une évaluation des applications et des logiciels d'une organisation 
+pour vérifier leur efficacité, leur conformité aux normes de bonnes pratiques de développement, 
+de sécurité et de respect de l'environnement ; leur adéquation aux objectifs de l'entreprise,
+afin d'identifier les possibilités d'amélioration.  
 
 ## L'élément déclencheur
 
@@ -239,7 +247,7 @@ permettent en général d'arriver aux mêmes conclusions.
 
 ### A.8. Documentation
 
-Toute documentation qui permettrait d'apporter des informations sur le domaine métier et/ou les process technique est
+Toute documentation qui permettrait d'apporter des informations sur le domaine métier et/ou les process techniques est
 intéressante à prendre en compte.
 L'absence de documentation n'est pas un point bloquant pour la réalisation de l'audit.
 
@@ -848,22 +856,7 @@ Il faut vérifier si l'architecture est flexible et ouverte à l'extension futur
 - Flexibilité
 - Ouverture à l'extension
 
-#### B.5.g. Tests
-
-Les stratégies de test utilisées dans l'application doivent être évaluées.
-Il faut analyser si des tests unitaires, des tests d'intégration et des tests de performance sont mis en place.
-
-Types de tests :
-
-- Tests unitaires
-- Tests d'intégration
-- Tests de performance
-- Tests de sécurité
-- Tests e2e
-- Tests de mutation (mutation testing)
-- ...
-
-#### B.5.h. Documentation
+#### B.5.g. Documentation
 
 Il est important de vérifier si la documentation de l'architecture logicielle est complète et à jour.
 Il faut analyser si elle fournit des informations claires sur les choix d'architecture (ADR),
@@ -878,11 +871,22 @@ Il convient d'identifier les éventuelles lacunes dans la documentation et de re
 ### B.6. Qualité du code
 
 En filigrane de l'analyse du code, l'idéal est d'avoir comme référentiel les nombreux livres écrits à ce sujet.
-Le premier, et le plus connu, est celui de *Robert C. Martin* : "*Clean Code*".
-Je ne vais pas lister les différents éléments énoncés dans ces livres (naming, commentaires, couplage, tests...),
+Le premier est celui de *Robert C. Martin* : "*Clean Code*".
+Je ne vais pas lister les différents éléments énoncés dans ces livres (design, naming, commentaires, couplage, tests...),
 mais plutôt les techniques à utiliser.
 
-#### B.6.a. Analyse statique du code
+#### B.6.a. Design
+
+Il est essentiel d'analyser le design en prenant en compte les principes du DDD. Pour cela, il est
+nécessaire de se poser les questions suivantes :
+
+- Est-ce que le modèle des objets utilisés est anémique (cf. DDD tactique) ?
+- Les "bonded contexts" sont-ils bien identifiés et définis ?
+- Un langage ubiquitaire (Ubiquitous langage) est-il utilisé dans chaque bounded context correspondant ? 
+- Les cas d'utilisations sont-ils bien clairs, compréhensibles et facilement déductibles depuis le code ? 
+- ...
+
+#### B.6.b. Analyse statique du code
 
 Afin d'analyser la qualité du code, il est nécessaire d'utiliser, dans un premier temps, des outils d'analyse statique
 du code (SonarQube, outil intégré aux IDE...).
@@ -901,12 +905,28 @@ Il est important d'exploiter les résultats de cette analyse, car ils facilitent
 - Bugs potentiels
 - ...
 
-#### B.6.b. Tests automatisés
+#### B.6.c. Tests automatisés
 
 Encore maintenant, en 2023, de très nombreuses applications ne contiennent malheureusement pas ou peu de tests
 automatisés.
 Il est donc important d'analyser si des tests automatisés sont mis en place, correctement écrits, et s'ils sont
-suffisants (cf. [Tests](#B5g-tests)).
+suffisants.
+
+Il faut analyser si des tests unitaires, des tests d'intégration et des tests de performance (entre autres, cf.
+ci-dessous) sont mis en place.
+
+À partir des tests existants, il est parfois possible de déduire la stratégie de tests utilisée 
+(TDD, tests écrits après le développement, tests écrits seulement pour atteindre un taux de couverture spécifique...). 
+
+Types de tests :
+
+- Tests unitaires
+- Tests d'intégration
+- Tests de performance
+- Tests de sécurité
+- Tests e2e
+- Tests de mutation (mutation testing)
+- ...
 
 ***À analyser*** :
 
@@ -1091,7 +1111,7 @@ Et doivent ainsi être traités dans la mesure du possible.
 
 #### C.4.c. Could have this if it does not affect anything else (C)
 
-Bien de les avoir, peuvent être retirés des priorités si des choix doivent être faits.
+Il est bien de les avoir et peuvent être retirés des priorités si des choix doivent être faits.
 Généralement, ils font partie des "petits plus" qui contribuent à la satisfaction client pour un coût très modéré.
 Ce sont donc des exigences additionnelles de confort.
 
